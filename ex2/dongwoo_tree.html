@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>dongwoo_tree</title>
+</head>
+<body>
+    <canvas id="dongwoo" width="800" height="600" style="border: 2px solid #cef;"></canvas>
+
+    <script>
+        const canvas = document.querySelector("#dongwoo");
+        const ctx = canvas.getContext("2d");
+        const startX = canvas.width / 2;
+        const startY = canvas.height - 50; // 바닥에서 약간 위로 조정
+        const total = 12; // 깊이 조정
+
+        function drawFractal(x, y, size, angle, depth) {
+            if (depth == 0) {
+                return;
+            }
+            const x1 = x + size * Math.cos(angle);
+            const y1 = y - size * Math.sin(angle); // y 좌표 계산 수정
+
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+            ctx.lineTo(x1, y1);
+            ctx.strokeStyle = `rgba(0, ${depth * 20}, 0, ${depth/total + 0.3})`; // 색상 조정
+            ctx.lineWidth = depth/2; // 선 굵기 조정
+            ctx.stroke();
+
+            setTimeout(() => {
+                drawFractal(x1, y1, size * 0.7, angle - Math.PI/4, depth - 1); // 크기와 각도 조정
+                drawFractal(x1, y1, size * 0.7, angle + Math.PI/4, depth - 1);
+            }, 100); // 애니메이션 속도 조정
+        }
+
+        drawFractal(startX, startY, 100, Math.PI/2, total);
+    </script>
+</body>
+</html>
