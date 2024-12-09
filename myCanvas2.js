@@ -1,4 +1,4 @@
-    const Canvas2 = document.getElementById("my Canvas");
+    const Canvas2 = document.getElementById("myCanvas2");
     const Ctx2 = Canvas2.getContext("2d");
 
     let gradient = Ctx2.createRadialGradient(350, 200, 150, 300, 120, 10);
